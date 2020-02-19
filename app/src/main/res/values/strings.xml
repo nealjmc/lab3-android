@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hangman - Lab3</string>
+    <string name="gameTitle">Hangman</string>
+    <string name="sharedPrefsGameName">hangmanGame</string>
+    <string name="sharedPrefsGamesWon">gamesWon</string>
+    <string name="sharedPrefsGamesLost">gamesLost</string>
+    <string name="wordsFileName">words.txt</string>
+</resources>
