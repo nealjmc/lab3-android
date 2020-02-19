@@ -16,6 +16,13 @@ import android.widget.TextView;
 
 import com.example.lab3.game.Hangman;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class GameActivity extends AppCompatActivity {
     Hangman hangmanGame;
     String word;
@@ -45,8 +52,8 @@ public class GameActivity extends AppCompatActivity {
         hiddenWord = createHiddenWordFromWord(word);
 
         // Get inputs
-        txtInput = (EditText) findViewById(R.id.inputGuess);
-        txtHiddenWord  = (TextView) findViewById(R.id.txtHiddenWord);
+        txtInput = findViewById(R.id.inputGuess);
+        txtHiddenWord = findViewById(R.id.txtHiddenWord);
 
         txtHiddenWord.setText(addSpaceBetweenLetters(createHiddenWordFromWord(word)));
 
@@ -67,7 +74,8 @@ public class GameActivity extends AppCompatActivity {
                 int inputKeyCode = event.getUnicodeChar();
                 boolean didFindLetter = false;
                 String foundLetterString = String.valueOf((char) inputKeyCode).toLowerCase();
-                txtInput.setText(txtInput.getText() + foundLetterString);
+                String organizedList = alphabetizeGuessedLetters(txtInput.getText().toString(), foundLetterString);
+                txtInput.setText(organizedList);
 
 
                 for (int index = 0; index < word.length(); index++) {
@@ -96,9 +104,21 @@ public class GameActivity extends AppCompatActivity {
         });
 
         // find image view
-        imageView = (ImageView) findViewById(R.id.hangmanImageView);
+        imageView = findViewById(R.id.hangmanImageView);
         imageView.setImageDrawable(ContextCompat.getDrawable(GameActivity.this, handmanImages[step]));
 
+    }
+
+    private String alphabetizeGuessedLetters(String guessedLetters, String newLetter) {
+        String stringToSort = guessedLetters + newLetter;
+        char[] arrayToSort = stringToSort.toCharArray();
+        Arrays.sort(arrayToSort);
+
+        String stringToDisplay = "";
+        for (char c : arrayToSort) {
+            stringToDisplay += c;
+        }
+        return stringToDisplay;
     }
 
     /**
@@ -174,23 +194,14 @@ public class GameActivity extends AppCompatActivity {
      * @return
      */
     public boolean checkForLoss() {
-        if (step == handmanImages.length - 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return step == handmanImages.length - 1;
     }
 
     public boolean checkForWin(){
         String hiddenWordToCompare = hiddenWord.toLowerCase().trim().replaceAll(" ", "");
         String wordToCompare = word.toLowerCase().trim();
 
-        if(hiddenWordToCompare.equals(wordToCompare)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return hiddenWordToCompare.equals(wordToCompare);
 
     }
 

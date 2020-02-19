@@ -2,6 +2,7 @@ package com.example.lab3.game;
 
 import android.content.Context;
 
+import com.example.lab3.database.WordEntity;
 import com.example.lab3.database.WordsDataSource;
 
 import java.util.ArrayList;
@@ -16,9 +17,9 @@ public class Hangman {
     }
 
     public String getRandomWord(){
-        Random rnadomGenerator = new Random();
-        ArrayList<String> wordList = this.database.getAllWords();
-        int randomIndex = rnadomGenerator.nextInt(wordList.size());
-        return wordList.get(randomIndex);
+        Random randomGen = new Random();
+        ArrayList<WordEntity> wordList = this.database.getAllWords();
+        int randomIndex = randomGen.nextInt(wordList.size());
+        return wordList.get(randomIndex).getWord();
     }
 }

@@ -47,24 +47,28 @@ public class WordsDataSource {
         int deletedRows = db.delete(WordContract.Words.TABLE_NAME, selection, selectionArgs);
     }
 
-    public ArrayList<String> getAllWords(){
+    public ArrayList<WordEntity> getAllWords() {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
+                WordContract.Words._ID,
                 WordContract.Words.COLUMN_NAME_WORD
         };
 
         Cursor cursor = db.query(WordContract.Words.TABLE_NAME, projection, null, null, null, null, null, null);
 
-        ArrayList<String> wordList = new ArrayList<String>();
-
+        ArrayList<WordEntity> wordList = new ArrayList<>();
         while(cursor.moveToNext()){
             String name = cursor.getString(cursor.getColumnIndexOrThrow("word"));
             if(name.length() > 0){
-                wordList.add(name);
+                WordEntity newWordFromDb = new WordEntity();
+                newWordFromDb.setId(cursor.getLong(cursor.getColumnIndexOrThrow(WordContract.Words._ID)));
+                newWordFromDb.setWord(cursor.getString(cursor.getColumnIndexOrThrow(WordContract.Words.COLUMN_NAME_WORD)));
+                wordList.add(newWordFromDb);
             }
         }
 
+        cursor.close();
         return wordList;
     }
 }
