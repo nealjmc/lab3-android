@@ -22,11 +22,11 @@
 
 ## Design Requirements
 1. The application uses (at least) the following classes: 
-  a. MainActivity – main program logic (controller)
-  b. Database Contract – to provide String values for tables and columns, etc.
-  c. OpenHelper – to manage database creation & upgrade
-  d. DAO – to perform database operations
-  e. Entity – to represent data in database.
+  - MainActivity – main program logic (controller)
+  - Database Contract – to provide String values for tables and columns, etc.
+  - OpenHelper – to manage database creation & upgrade
+  - DAO – to perform database operations
+  - Entity – to represent data in database.
 
 Due Date
 Wednesday February 21st .  
